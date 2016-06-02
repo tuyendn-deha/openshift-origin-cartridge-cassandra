@@ -1,20 +1,26 @@
 Name: cassandra
 Cartridge-Short-Name: CASSANDRA
 Architecture: noarch
-Display-Name: Cassandra Database 3.4
-Description: "Cassandra is a multi-user, multi-threaded NoSQL database server."
-Version: '3.4'
-Versions: [3.4]
-Cartridge-Version: 0.0.2
-Cartridge-Vendor: rc
+Display-Name: Cassandra Database 2.2.6.
+Description: "The Apache Cassandra database is the right choice when you need scalability and high availability without compromising performance. Linear scalability and proven fault-tolerance on commodity hardware or cloud infrastructure make it the perfect platform for mission-critical data. Cassandra's support for replicating across multiple datacenters is best-in-class, providing lower latency for your users and the peace of mind of knowing that you can survive regional outages."
+Version: '2.2.6'
+Versions:
+- '2.0.8'
+- '2.2.6'
+Cartridge-Version: 0.0.4
+Compatible-Versions:
+- 0.0.1
+- 0.0.2
+- 0.0.3
+Cartridge-Vendor: tokyohans
 License: GPL
-Vendor: Oracle
+Vendor: Hans Raj Verma
 Categories:
   - service
   - database
   - embedded
 Website: http://cassandra.apache.org
-Source-Url: https://github.com/rajatchopra/openshift-origin-cartridge-cassandra.git
+Source-Url: https://github.com/tokyohans/openshift-origin-cartridge-cassandra.git
 Help-Topics:
   - "Building with Cassandra" : http://docs.redhat.com/docs/en-US/OpenShift/2.0/html/User_Guide/sect-User_Guide-Working_With_Database_Cartridges.html
 Cart-Data:
@@ -30,26 +36,24 @@ Cart-Data:
   - Key: connection_url
     Type: cart_data
     Description: "Cassandra DB connection URL"
-  - Key: connection_port_cassandra
-    Type: cart_data
-    Description: "Cassandra connection PORT"
 Provides:
-  - cassandra-3.4
-  - cassandra 
-  - cassandra-singleton-master
+  - cassandra-2.2.6
+  - cassandra
 Publishes:
   publish-db-connection-info:
     Type: "ENV:NET_TCP:db:connection-info"
 Scaling:
   Min: 1
-  Max: 1
+  Max: -1
 Endpoints:
   - Private-IP-Name:   DB_HOST
     Private-Port-Name: DB_PORT
     Private-Port:      19160
     Public-Port-Name:  DB_PROXY_PORT
-  - Private-IP-Name: DB_HOST
-    Private-Port-Name: NATIVE_TRANSPORT_PORT
-    Private-Port: 19042
-    Public-Port-Name:  NATIVE_PROXY_TRANSPORT_PORT
 Install-Build-Required: false
+Version-Overrides:
+  '2.0.8':
+    Display-Name: Cassandra Database 2.0.8
+    Provides:
+    - cassandra-2.0.8
+    - cassandra
